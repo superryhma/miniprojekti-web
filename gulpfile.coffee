@@ -5,7 +5,7 @@ wrench = require 'wrench'
 
 options =
   src: 'src'
-  dist: '../srmp/static/'
+  dist: 'build'
   tmp: '.tmp'
   e2e: 'e2e'
   errorHandler: (title) ->
