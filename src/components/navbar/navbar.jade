@@ -1,0 +1,7 @@
+nav.navbar(ng-controller="NavbarCtrl")
+  span.title SuperRyhmä Miniprojekti
+  ul
+    li(ng-class="{active: isActive('/')}")
+      a(ng-href="/#/") Home
+    li(ng-class="{active: isActive('/about')}")
+      a(ng-href="/#/about") About

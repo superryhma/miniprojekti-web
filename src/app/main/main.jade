@@ -1,0 +1,44 @@
+table.u-full-width
+  thead
+    tr
+      th Name
+      th Type
+      th Fields
+      th Tags
+      th Actions
+  tbody
+    tr(ng-repeat="reference in references")
+      td {{reference.name}}
+      td {{reference.type | capitalize}}
+      td
+        ul.fields
+          li(ng-repeat="(key, field) in reference.fields")
+            strong {{key | capitalize}}
+            span &nbsp;{{field}}
+      td
+        span {{reference.tags | unlist}}
+      td
+        a.button.button-primary.u-full-width(ng-href="/#/references/{{reference.id}}/") Edit
+        br
+        a.button.button-danger.u-full-width Remove
+div.error No Error
+form.add-new(ng-submit="addReference()")
+  table.u-full-width
+    tbody
+      tr
+        td
+          input.u-full-width(type="text" name="name" placeholder="Name")
+        td
+          select.u-full-width(ng-model="selectedType" name="type"
+                              ng-options="type.name | capitalize for type in types")
+        td
+          ul.fields
+            li(ng-repeat="key in selectedType.required")
+              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}")
+            li(ng-repeat="key in selectedType.optional")
+              input.u-full-width(type="text" name="field_{{key}}"
+                                 placeholder="(Optional) {{key | capitalize}}")
+        td
+          input.u-full-width(type="text" name="tags" placeholder="Tags")
+        td
+          input(type="submit" value="Add").button.button-primary.u-full-width

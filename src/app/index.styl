@@ -1,0 +1,40 @@
+nav
+  font-size 1.5rem
+  span.title
+    font-weight bold
+  ul
+    font-size 0
+    display inline-block
+    li
+      display inline-block
+      &.active
+        a
+          color #222
+      a
+        padding 1rem
+        display inline-block
+        font-size 1.5rem
+
+ul.fields
+  margin 0.1rem
+  li
+    list-style none
+    margin 0.1rem
+
+.button-danger
+  background-color #FF992E
+  border-color #FF992E
+  color white
+  &:hover
+    color white
+    background-color darken(#FF992E, 20%)
+    border-color darken(#FF992E, 20%)
+
+.error
+  background-color #FF992E
+  border-radius 4px
+  padding 0.25rem
+  margin 0.25rem
+  width 100%
+  color white
+  display none
