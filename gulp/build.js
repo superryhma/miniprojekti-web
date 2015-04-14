@@ -80,7 +80,7 @@ module.exports = function(options) {
   });
 
   gulp.task('clean', function (done) {
-    $.del([/*options.dist + '/',*/ options.tmp + '/'], done);
+    $.del([options.dist + '/', options.tmp + '/'], done);
   });
 
   gulp.task('build', ['html', 'fonts', 'other']);

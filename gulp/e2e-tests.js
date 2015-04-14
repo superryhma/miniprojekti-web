@@ -14,7 +14,7 @@ module.exports = function(options) {
 
   function runProtractor (done) {
 
-    gulp.src(options.e2e + '/**/*.js')
+    gulp.src(options.e2e + '/**/*.coffee')
       .pipe($.protractor.protractor({
         configFile: 'protractor.conf.js'
       }))

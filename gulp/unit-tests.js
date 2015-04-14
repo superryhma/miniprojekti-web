@@ -18,8 +18,8 @@ module.exports = function(options) {
     });
 
     var specFiles = [
-      options.src + '/**/*.spec.js',
-      options.src + '/**/*.mock.js'
+      options.src + '/**/*.spec.coffee',
+      options.src + '/**/*.mock.coffee'
     ];
 
     var htmlFiles = [

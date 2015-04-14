@@ -30,45 +30,11 @@ angular.module "web"
         .error (data) ->
           document.querySelector(".error").innerHTML = data.description
           document.querySelector(".error").style.display = "block"
-    ###$scope.references = [
-      {
-        "id": 16,
-        "name": "MSAM",
-        "url": "/api/references/16",
-        "created_at": "2015-03-31T17:09:27Z",
-        "updated_at": "2015-03-31T17:22:47Z",
-        "type": "book",
-        "fields": {
-          "author": "Matti",
-          "title": "Sammakkokirja",
-          "year": "2013",
-          "publisher": "Otava",
-          "pages": "512"
-        },
-        "tags": [
-          "suomi", "lol"
-        ]
-      },
-      {
-        "id": 17,
-        "name": "KEK",
-        "url": "/api/references/17",
-        "created_at": "2015-03-31T17:09:27Z",
-        "updated_at": "2015-03-31T17:22:47Z",
-        "type": "misc",
-        "fields": {
-          "author": "Kek Kos",
-          "title": "Hehehehehe",
-          "year": "2016",
-        },
-        "tags": [
-          "lol"
-        ]
-      }
-    ]###
+
   .filter 'unlist', ->
     (input) ->
       return input.join ", "
+
   .filter 'capitalize', ->
     (input) ->
       return false if input is undefined
