@@ -7,6 +7,19 @@ angular.module 'web', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRes
         resolve: {
           types: "Types"
         }
+      .when "/about",
+        templateUrl: "app/about/about.html"
+      .when "/BiBTeX",
+        templateUrl: "app/bibtex/bibtex.html"
+        controller: "BiBTeXCtrl"
       .otherwise
         redirectTo: "/"
 
+  .filter 'unlist', ->
+    (input) ->
+      return input.join ", "
+
+  .filter 'capitalize', ->
+    (input) ->
+      return false if input is undefined
+      return input.charAt(0).toUpperCase() + input.substr(1).toLowerCase()
