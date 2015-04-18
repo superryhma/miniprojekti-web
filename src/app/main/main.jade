@@ -32,12 +32,11 @@ form.add-new#add-new(ng-submit="addReference()")
           select.u-full-width(ng-model="selectedType" name="type"
                               ng-options="type.name | capitalize for type in types")
         td
-          ul.fields
-            li(ng-repeat="key in selectedType.required")
+          ul.fields.input-fields
+            li(ng-repeat="key in selectedType.required | orderBy:key")
               input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}")
-            li(ng-repeat="key in selectedType.optional")
-              input.u-full-width(type="text" name="field_{{key}}"
-                                 placeholder="(Optional) {{key | capitalize}}")
+            li(ng-repeat="key in selectedType.optional | orderBy:key")
+              input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}")
         td
           input.u-full-width(type="text" name="tags" placeholder="Tags")
         td
