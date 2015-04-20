@@ -7,6 +7,12 @@ angular.module 'web', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRes
         resolve: {
           types: "Types"
         }
+      .when "/references/:id",
+        templateUrl: "app/reference/reference.html"
+        controller: "ReferenceCtrl"
+        resolve: {
+          types: "Types"
+        }
       .when "/about",
         templateUrl: "app/about/about.html"
       .when "/BiBTeX",
@@ -17,7 +23,7 @@ angular.module 'web', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRes
 
   .filter 'unlist', ->
     (input) ->
-      return input.join ", "
+      return input?.join ", "
 
   .filter 'capitalize', ->
     (input) ->

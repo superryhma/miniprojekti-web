@@ -1,13 +1,6 @@
 angular.module "web"
-  .controller "BiBTeXCtrl", ($scope, $http) ->
-    req =
-      method: 'GET'
-      url: '/api/references'
-      headers: {
-        'Accept': 'text/x-bibtex'
-      }
-
-    $http req
+  .controller "BiBTeXCtrl", ($scope, $http, references) ->
+    references.getBiBTeX()
       .success (data) ->
         document.querySelector("#BiBTeX").innerHTML = data
       .error (data) ->

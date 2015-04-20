@@ -1,7 +1,8 @@
 angular.module "web"
-  .controller "MainCtrl", ($scope, $http, types, references) ->
+  .controller "ReferenceCtrl", ($scope, $http, $routeParams, types, references) ->
     $scope.types = types.data.types
     $scope.selectedType = $scope.types[0]
+    $scope.editing = false
 
     errorElement = document.querySelector(".error")
 
@@ -13,9 +14,9 @@ angular.module "web"
       errorElement.innerHTML = ""
       errorElement.style.display = "none"
 
-    updateReferences = () ->
-      references.get().success (data) ->
-        $scope.references = data.references
+    updateReference = () ->
+      references.getId($routeParams.id).success (data) ->
+        $scope.reference = data
         hideError()
 
     parseForm = (formId="add-new") ->
@@ -36,23 +37,28 @@ angular.module "web"
       for input in document.querySelectorAll("form\##{formId} input[type=text]")
         input.value = ""
 
-    addReference = () ->
+    editReference = () ->
       req = parseForm()
-      references.add(req)
+      references.edit($routeParams.id, req)
         .success (data) ->
-          updateReferences()
+          updateReference()
           resetForm()
+          $scope.editing = false
         .error (data) ->
           showError (if typeof data is Object then data.description else data)
 
     removeReference = (target) ->
       references.delete(target)
         .success (data) ->
-          updateReferences()
+          updateReference()
         .error (data) ->
           showError data
 
-    updateReferences()
+    updateReference()
 
-    $scope.addReference = addReference
     $scope.removeReference = removeReference
+    $scope.editReference = editReference
+    $scope.startEditing = () ->
+      $scope.editing = true
+    $scope.stopEditing = () ->
+      $scope.editing = false
