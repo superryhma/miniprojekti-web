@@ -50,13 +50,19 @@ angular.module "web"
       name = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
       document.querySelector("input[name=name]").value = data.name
 
-      selector = document.querySelector("select[name=type]")
-      for i of selector.options
-        if selector.options[i].text.toLowerCase() == data.type
-          selector.selectedIndex = i
+      #selector = document.querySelector("select[name=type]")
+      #for i of selector.options
+      #  if selector.options[i].text.toLowerCase() == data.type
+      #    selector.selectedIndex = i
+      #    break
+      for i in $scope.types
+        if i.name == data.type
+          $scope.selectedType = i
           break
 
-      for field_key of data.fields
-        ele = document.querySelector("input[name='field_#{field_key}'")
-        if ele
-          ele.value = data.fields[field_key]
+      setTimeout () ->
+        for field_key of data.fields
+          ele = document.querySelector("input[name='field_#{field_key}'")
+          if ele
+            ele.value = data.fields[field_key]
+       , 50
