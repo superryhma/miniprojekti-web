@@ -63,7 +63,10 @@ angular.module "web"
     name = document.querySelector 'input[name="name"]'
     if author and year
       if author.value.length == 0 or year.value.length == 0 or name.value.length != 0
+        name.setAttribute("placeholder", "")
         return
       getSuggestion(author.value, year.value).success (data) ->
         name.setAttribute("placeholder", data.name)
+
+
   }
