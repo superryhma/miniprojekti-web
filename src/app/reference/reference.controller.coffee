@@ -1,8 +1,8 @@
 angular.module "web"
-  .controller "ReferenceCtrl", ($scope, $http, $routeParams, types, references) ->
+  .controller "ReferenceCtrl", ($scope, $http, $routeParams, $location, types, references) ->
     $scope.types = types.data.types
     $scope.selectedType = $scope.types[0]
-    $scope.editing = false
+    $scope.editing = true
 
     errorElement = document.querySelector(".error")
 
@@ -28,7 +28,7 @@ angular.module "web"
       for input in document.querySelectorAll("form\##{formId} input[type=text]")
         switch input.name
           when "name" then req.name = input.value
-          when "tags" then req.tags = input.value.split " " if input.value.length > 0
+          when "tags" then req.tags = input.value.split "," if input.value.length > 0
           else req.fields[input.name.split("field_")[1]] = input.value if input.getAttribute("type") is "text" and input.value.length > 0
 
       req
@@ -44,6 +44,7 @@ angular.module "web"
           updateReference()
           resetForm()
           $scope.editing = false
+          $location.url "/"
         .error (data) ->
           showError (if typeof data is Object then data.description else data)
 
@@ -62,3 +63,4 @@ angular.module "web"
       $scope.editing = true
     $scope.stopEditing = () ->
       $scope.editing = false
+      $location.url "/"

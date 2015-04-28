@@ -8,7 +8,7 @@ form.add-new#add-new(ng-submit="addReference()")
         th Tags
         th Actions
     tbody
-      tr(ng-repeat="reference in references")
+      tr(ng-repeat="reference in references | orderBy: 'name'")
         td {{reference.name}}
         td {{reference.type | capitalize}}
         td

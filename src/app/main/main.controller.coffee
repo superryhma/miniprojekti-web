@@ -27,7 +27,7 @@ angular.module "web"
       for input in document.querySelectorAll("form\##{formId} input[type=text]")
         switch input.name
           when "name" then req.name = input.value
-          when "tags" then req.tags = input.value.split " " if input.value.length > 0
+          when "tags" then req.tags = input.value.split "," if input.value.length > 0
           else req.fields[input.name.split("field_")[1]] = input.value if input.getAttribute("type") is "text" and input.value.length > 0
 
       req

@@ -14,7 +14,7 @@ form.add-new#add-new
         th Type
         th Fields
         th Tags
-    tbody  
+    tbody
       tr
         td
           span(ng-if="!editing") {{reference.name}}
@@ -36,4 +36,4 @@ form.add-new#add-new
               input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}" value="{{reference.fields[key]}}")
         td
           span(ng-if="!editing") {{reference.tags | unlist}}
-          input.u-full-width(ng-if="editing" type="text" name="tags" placeholder="Tags")
+          input.u-full-width(ng-if="editing" type="text" name="tags" placeholder="Tags" value="{{reference.tags|unlist}}")
