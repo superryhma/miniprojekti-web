@@ -1,39 +1,29 @@
-div(ng-if="editing")
-  button.button.button-primary(ng-click="editReference()") Save
-  button.button.button-danger(ng-click="stopEditing()") Cancel
-div(ng-if="!editing")
-  button.button(ng-click="startEditing()") Edit
-
-div.error No Error
+button.button.button-primary(ng-click="editReference()") Save
+button.button.button-danger(ng-click="stopEditing()") Cancel
 
 form.add-new#add-new
-  table.u-full-width
-    thead
-      tr
-        th Name
-        th Type
-        th Fields
-        th Tags
-    tbody
-      tr
-        td
-          span(ng-if="!editing") {{reference.name}}
-          input.u-full-width(ng-if="editing" type="text" name="name" placeholder="Name" value="{{reference.name}}")
-        td
-          span(ng-if="!editing") {{reference.type | capitalize}}
-          select.u-full-width(ng-if="editing" ng-model="selectedType" name="type"
-                              ng-options="type.name | capitalize for type in types"
-                              value="{{reference.type}}")
-        td
-          ul.fields(ng-if="!editing")
-            li(ng-repeat="(key, field) in reference.fields")
-              strong {{key | capitalize}}
-              span &nbsp;{{field}}
-          ul.fields.input-fields(ng-if="editing")
-            li(ng-repeat="key in selectedType.required | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}" value="{{reference.fields[key]}}" ng-keyup="getSuggestion()")
-            li(ng-repeat="key in selectedType.optional | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}" value="{{reference.fields[key]}}")
-        td
-          span(ng-if="!editing") {{reference.tags | unlist}}
-          input.u-full-width(ng-if="editing" type="text" name="tags" placeholder="Tags" value="{{reference.tags|unlist}}")
+  .row
+    .error No Error
+  .row
+    .four.columns
+      label(for="name") Name
+      input.u-full-width(type="text" name="name" id="name" value="{{reference.name}}")
+    .four.columns
+      label(for="type") Type
+      select.u-full-width(ng-model="selectedType" id="type" name="type" value="{{reference.type}}"
+        ng-options="type.name | capitalize for type in types")
+    .four.columns
+      label(for="tags") Tags
+      input.u-full-width(type="text" name="tags" id="tags" value="{{reference.tags | unlist}}")
+  .row
+    ul.fields.input-fields
+      li(ng-repeat="key in selectedType.required | orderBy:key")
+        .three.columns
+          label.field-label(for="field_{{key}}") {{key | capitalize}}
+        .nine.columns
+          input.u-full-width(type="text" value="{{reference.fields[key]}}" id="field_{{key}}" name="field_{{key}}" ng-keyup="getSuggestion()")
+      li(ng-repeat="key in selectedType.optional | orderBy:key")
+        .three.columns
+          label.field-label.optional(for="field_{{key}}") {{key | capitalize}}
+        .nine.columns
+          input.u-full-width(type="text" value="{{reference.fields[key]}}" id="field_{{key}}" name="field_{{key}}")

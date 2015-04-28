@@ -39,13 +39,13 @@ angular.module "web"
           req.fields[input.name.split("field_")[1]] = input.value if input.getAttribute("type") is "text" and input.value.length > 0
 
     placeholder = document.querySelector("input[name='name']").getAttribute("placeholder")
-    if req.name.length == 0 and placeholder != "Name"
+    if req.name.length == 0 and placeholder.length > 0
       req.name = placeholder
 
     req
   resetForm: (formId = "add-new") ->
     input.value = "" for input in document.querySelectorAll("form\##{formId} input[type=text]")
-    document.querySelector("input[name='name']").setAttribute("placeholder", "Name")
+    document.querySelector("input[name='name']").setAttribute("placeholder", "")
   getTemplate: getTemplate
   getBiBTeX: () ->
     req =

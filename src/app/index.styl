@@ -26,13 +26,8 @@ ul.input-fields
     margin 0 0.1rem
     input
       margin 0
-      border-radius 0
-    &:not(:last-child) input
-      border-bottom none
-    &:last-child input
-      border-radius 0 0 4px 4px
-    &:first-child input
-      border-radius 4px 4px 0 0
+      border-radius 4px
+
 
 .button-danger
   background-color #FF992E
@@ -58,3 +53,26 @@ ul.input-fields
   border-radius 4px
   background-color darken(white, 10%)
   font-size 1.1rem
+
+.reference
+  border-bottom thin solid #c8c8c8
+  padding 1.5rem
+  margin-bottom 1.5rem
+
+.optional
+  color lighten(black, 50%)
+
+@media screen and (min-width: 550px)
+  .field-label
+    text-align right
+    padding-top 0.6rem
+  ul.input-fields
+    li
+      input
+        border-radius 0
+      &:not(:last-child) input
+        border-bottom none
+      &:last-child input
+        border-radius 0 0 4px 4px
+      &:first-child input
+        border-radius 4px 4px 0 0

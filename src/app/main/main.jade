@@ -1,44 +1,54 @@
 input.u-full-width(type="search" name="search" placeholder="Search" ng-model="search")
 form.add-new#add-new(ng-submit="addReference()")
-  table.u-full-width
-    thead
-      tr
-        th Name
-        th Type
-        th Fields
-        th Tags
-        th Actions
-    tbody
-      tr(ng-repeat="reference in references | filter: search | orderBy: 'name'")
-        td {{reference.name}}
-        td {{reference.type | capitalize}}
-        td
+  div.reference(ng-repeat="reference in references | filter: search | orderBy: 'name'")
+    .row
+      .nine.columns
+        .row
+          .four.columns
+            strong Name
+            span &nbsp;{{reference.name}}
+          .four.columns
+            strong Type
+            span &nbsp;{{reference.type | capitalize}}
+          .four.columns
+           strong Tags
+           span &nbsp;{{reference.tags | unlist}}
+        .row
           ul.fields
             li(ng-repeat="(key, field) in reference.fields")
               strong {{key | capitalize}}
               span &nbsp;{{field}}
-        td
-          span {{reference.tags | unlist}}
-        td
-          a.button.button-primary.u-full-width(ng-href="/#/references/{{reference.id}}/") Edit
-          br
-          a.button.button-danger.u-full-width(ng-click="removeReference({{reference.id}})") Remove
-      tr
-        td(colspan="5")
-          div.error No Error
-      tr
-        td
-          input.u-full-width(type="text" name="name" placeholder="Name")
-        td
-          select.u-full-width(ng-model="selectedType" name="type"
-                              ng-options="type.name | capitalize for type in types")
-        td
-          ul.fields.input-fields
-            li(ng-repeat="key in selectedType.required | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}" ng-keyup="getSuggestion()")
-            li(ng-repeat="key in selectedType.optional | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}")
-        td
-          input.u-full-width(type="text" name="tags" placeholder="Tags")
-        td
-          input(type="submit" value="Add").button.button-primary.u-full-width
+      .three.columns
+        a.button.button-primary.u-full-width(ng-href="/#/references/{{reference.id}}/") Edit
+        br
+        a.button.button-danger.u-full-width(ng-click="removeReference({{reference.id}})") Remove
+  .row
+    .twelve.columns
+      .error No Error
+  .row
+    .nine.columns
+      .row
+        .four.columns
+          label(for="name") Name
+          input.u-full-width(type="text" name="name" id="name")
+        .four.columns
+          label(for="type") Type
+          select.u-full-width(ng-model="selectedType" id="type" name="type"
+            ng-options="type.name | capitalize for type in types")
+        .four.columns
+          label(for="tags") Tags
+          input.u-full-width(type="text" name="tags" id="tags")
+      .row
+        ul.fields.input-fields
+          li(ng-repeat="key in selectedType.required | orderBy:key")
+            .three.columns
+              label.field-label(for="field_{{key}}") {{key | capitalize}}
+            .nine.columns
+              input.u-full-width(type="text" id="field_{{key}}" name="field_{{key}}" ng-keyup="getSuggestion()")
+          li(ng-repeat="key in selectedType.optional | orderBy:key")
+            .three.columns
+              label.field-label.optional(for="field_{{key}}") {{key | capitalize}}
+            .nine.columns
+              input.u-full-width(type="text" id="field_{{key}}" name="field_{{key}}")
+    .three.columns
+      input(type="submit" value="Add").button.button-primary.u-full-width
