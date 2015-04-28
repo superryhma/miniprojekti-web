@@ -15,6 +15,10 @@ angular.module "web"
 
   updateReference = () ->
     references.getId($routeParams.id).success (data) ->
+      for type in $scope.types
+        if type.name == data.type
+          $scope.selectedType = type
+          break
       $scope.reference = data
       hideError()
 
