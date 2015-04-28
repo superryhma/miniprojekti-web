@@ -19,30 +19,12 @@ angular.module "web"
         $scope.reference = data
         hideError()
 
-    parseForm = (formId="add-new") ->
-      req = references.getTemplate()
-
-      selector = document.querySelector("form\##{formId} select[name=type]")
-      req.type = selector.options[selector.selectedIndex].text.toLowerCase()
-
-      for input in document.querySelectorAll("form\##{formId} input[type=text]")
-        switch input.name
-          when "name" then req.name = input.value
-          when "tags" then req.tags = input.value.split "," if input.value.length > 0
-          else req.fields[input.name.split("field_")[1]] = input.value if input.getAttribute("type") is "text" and input.value.length > 0
-
-      req
-
-    resetForm = (formId="add-new") ->
-      for input in document.querySelectorAll("form\##{formId} input[type=text]")
-        input.value = ""
-
     editReference = () ->
-      req = parseForm()
+      req = references.parseForm()
       references.edit($routeParams.id, req)
         .success (data) ->
           updateReference()
-          resetForm()
+          references.resetForm()
           $scope.editing = false
           $location.url "/"
         .error (data) ->

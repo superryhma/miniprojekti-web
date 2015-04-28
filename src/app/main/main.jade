@@ -35,7 +35,7 @@ form.add-new#add-new(ng-submit="addReference()")
         td
           ul.fields.input-fields
             li(ng-repeat="key in selectedType.required | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}")
+              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}" ng-keyup="getSuggestion()")
             li(ng-repeat="key in selectedType.optional | orderBy:key")
               input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}")
         td

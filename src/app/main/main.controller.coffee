@@ -6,7 +6,7 @@ angular.module "web"
     errorElement = document.querySelector(".error")
 
     showError = (error) ->
-      errorElement.innerHTML = error
+      errorElement.innerHTML = error.description
       errorElement.style.display = "block"
 
     hideError = () ->
@@ -18,30 +18,22 @@ angular.module "web"
         $scope.references = data.references
         hideError()
 
-    parseForm = (formId="add-new") ->
-      req = references.getTemplate()
-
-      selector = document.querySelector("form\##{formId} select[name=type]")
-      req.type = selector.options[selector.selectedIndex].text.toLowerCase()
-
-      for input in document.querySelectorAll("form\##{formId} input[type=text]")
-        switch input.name
-          when "name" then req.name = input.value
-          when "tags" then req.tags = input.value.split "," if input.value.length > 0
-          else req.fields[input.name.split("field_")[1]] = input.value if input.getAttribute("type") is "text" and input.value.length > 0
-
-      req
-
-    resetForm = (formId="add-new") ->
-      for input in document.querySelectorAll("form\##{formId} input[type=text]")
-        input.value = ""
+    getSuggestion = () ->
+      author = document.querySelector 'input[name="field_author"]'
+      year = document.querySelector 'input[name="field_year"]'
+      name = document.querySelector 'input[name="name"]'
+      if author and year
+        if author.value.length == 0 or year.value.length == 0
+          return
+        references.getSuggestion(author.value, year.value).success (data) ->
+          name.value = data.name
 
     addReference = () ->
-      req = parseForm()
+      req = references.parseForm()
       references.add(req)
         .success (data) ->
           updateReferences()
-          resetForm()
+          references.resetForm()
         .error (data) ->
           showError (if typeof data is Object then data.description else data)
 
@@ -56,3 +48,4 @@ angular.module "web"
 
     $scope.addReference = addReference
     $scope.removeReference = removeReference
+    $scope.getSuggestion = getSuggestion
