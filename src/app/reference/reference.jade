@@ -1,6 +1,6 @@
 div(ng-if="editing")
-  button.button(ng-click="editReference()") Save
-  button.button(ng-click="stopEditing()") Cancel
+  button.button.button-primary(ng-click="editReference()") Save
+  button.button.button-danger(ng-click="stopEditing()") Cancel
 div(ng-if="!editing")
   button.button(ng-click="startEditing()") Edit
 
@@ -31,7 +31,7 @@ form.add-new#add-new
               span &nbsp;{{field}}
           ul.fields.input-fields(ng-if="editing")
             li(ng-repeat="key in selectedType.required | orderBy:key")
-              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}" value="{{reference.fields[key]}}")
+              input.u-full-width(type="text" name="field_{{key}}" placeholder="{{key | capitalize}}" value="{{reference.fields[key]}}" ng-keyup="getSuggestion()")
             li(ng-repeat="key in selectedType.optional | orderBy:key")
               input.u-full-width(type="text" name="field_{{key}}" placeholder="(Optional) {{key | capitalize}}" value="{{reference.fields[key]}}")
         td

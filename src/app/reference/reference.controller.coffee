@@ -46,3 +46,4 @@ angular.module "web"
     $scope.stopEditing = () ->
       $scope.editing = false
       $location.url "/"
+    $scope.getSuggestion = references.makeSuggestionHappen

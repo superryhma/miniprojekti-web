@@ -18,16 +18,6 @@ angular.module "web"
         $scope.references = data.references
         hideError()
 
-    getSuggestion = () ->
-      author = document.querySelector 'input[name="field_author"]'
-      year = document.querySelector 'input[name="field_year"]'
-      name = document.querySelector 'input[name="name"]'
-      if author and year
-        if author.value.length == 0 or year.value.length == 0
-          return
-        references.getSuggestion(author.value, year.value).success (data) ->
-          name.value = data.name
-
     addReference = () ->
       req = references.parseForm()
       references.add(req)
@@ -48,4 +38,4 @@ angular.module "web"
 
     $scope.addReference = addReference
     $scope.removeReference = removeReference
-    $scope.getSuggestion = getSuggestion
+    $scope.getSuggestion = references.makeSuggestionHappen
